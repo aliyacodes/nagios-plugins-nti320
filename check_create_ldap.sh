@@ -72,7 +72,7 @@ else
 fi
 
 echo -e "\n"
-sleep 20
+sleep 5
 
 ldapdelete -x -D cn=ldapadm,dc=nti310,dc=local -W cn="James Richter",ou=People,dc=nti310,dc=local -y /root/ldap_admin_pass
 ldapdelete -x -D cn=ldapadm,dc=nti310,dc=local -W cn="Book Characters",ou=Group,dc=nti310,dc=local -y /root/ldap_admin_pass
