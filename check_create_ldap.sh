@@ -24,10 +24,10 @@ uid: jrichter
 uidnumber: 1000
 userpassword: {MD5}X03MO1qnZdYdgyfeuILPmQ==" > jamesrichter.ldif
 
-ldapadd -x -W -D "cn=ldapadm,dc=nti310,dc=local" -f bookcharacters.ldif -y /root/ldap_admin_pass
-ldapadd -x -W -D "cn=ldapadm,dc=nti310,dc=local" -f jamesrichter.ldif -y /root/ldap_admin_pass
+sudo ldapadd -x -W -D "cn=ldapadm,dc=nti310,dc=local" -f bookcharacters.ldif -y /root/ldap_admin_pass
+sudo ldapadd -x -W -D "cn=ldapadm,dc=nti310,dc=local" -f jamesrichter.ldif -y /root/ldap_admin_pass
 
-addUserOutput=$(ldapsearch -x -D cn=ldapadm,dc=nti310,dc=local -b cn="James Richter",ou=People,dc=nti310,dc=local -y /root/ldap_admin_pass | grep -c Success)
+addUserOutput=$(sudo ldapsearch -x -D cn=ldapadm,dc=nti310,dc=local -b cn="James Richter",ou=People,dc=nti310,dc=local -y /root/ldap_admin_pass | grep -c Success)
 
 if [ $addUserOutput == "1" ]; then
         echo "ADD USER STATUS: OK"
@@ -41,7 +41,7 @@ else
         add_user_status="3";
 fi
 
-addGroupOutput=$(ldapsearch -x -D cn=ldapadm,dc=nti310,dc=local -b cn="Book Characters",ou=Group,dc=nti310,dc=local -y /root/ldap_admin_pass | grep -c Success)
+addGroupOutput=$(sudo ldapsearch -x -D cn=ldapadm,dc=nti310,dc=local -b cn="Book Characters",ou=Group,dc=nti310,dc=local -y /root/ldap_admin_pass | grep -c Success)
 
 if [ $addGroupOutput == "1" ]; then
         echo "ADD GROUP STATUS: OK"
@@ -74,10 +74,10 @@ fi
 echo -e "\n"
 sleep 5
 
-ldapdelete -x -D cn=ldapadm,dc=nti310,dc=local -W cn="James Richter",ou=People,dc=nti310,dc=local -y /root/ldap_admin_pass
-ldapdelete -x -D cn=ldapadm,dc=nti310,dc=local -W cn="Book Characters",ou=Group,dc=nti310,dc=local -y /root/ldap_admin_pass
+sudo ldapdelete -x -D cn=ldapadm,dc=nti310,dc=local -W cn="James Richter",ou=People,dc=nti310,dc=local -y /root/ldap_admin_pass
+sudo ldapdelete -x -D cn=ldapadm,dc=nti310,dc=local -W cn="Book Characters",ou=Group,dc=nti310,dc=local -y /root/ldap_admin_pass
 
-removeUserOutput=$(ldapsearch -x -D cn=ldapadm,dc=nti310,dc=local -b cn="James Richter",ou=People,dc=nti310,dc=local -y /root/ldap_admin_pass | grep -c Success)
+removeUserOutput=$(sudo ldapsearch -x -D cn=ldapadm,dc=nti310,dc=local -b cn="James Richter",ou=People,dc=nti310,dc=local -y /root/ldap_admin_pass | grep -c Success)
 
 if [ $removeUserOutput == "0" ]; then
         echo "REMOVE USER STATUS: OK"
@@ -91,7 +91,7 @@ else
         remove_user_status="3";
 fi
 
-removeGroupOutput=$(ldapsearch -x -D cn=ldapadm,dc=nti310,dc=local -b cn="Book Characters",ou=Group,dc=nti310,dc=local -y /root/ldap_admin_pass | grep -c Success)
+removeGroupOutput=$(sudo ldapsearch -x -D cn=ldapadm,dc=nti310,dc=local -b cn="Book Characters",ou=Group,dc=nti310,dc=local -y /root/ldap_admin_pass | grep -c Success)
 
 if [ $removeGroupOutput == "0" ]; then
         echo "REMOVE GROUP STATUS: OK"
