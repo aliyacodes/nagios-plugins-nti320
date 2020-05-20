@@ -14,7 +14,7 @@ define command{
 define service {
         host_name                       example
         service_description             service_name
-        check_command                   check_http_curl!http://10.128.0.3/path!--proxy http://user:name@host:8080 --user user:name --ntlm
+        check_command                   check_http.1!http://10.128.0.3/path!--proxy http://user:name@host:8080 --user user:name --ntlm
         use                             generic-service
         notes                           some useful notes >>>not sure this is right
 }
