@@ -8,3 +8,11 @@ define command{
     command_name  check_http.1
     command_line  /usr/lib64/nagios/plugins/check_http.1  --url='$ARG1$' --extra_args='$ARG2$'
 }
+
+define service {
+        host_name                       example
+        service_description             service_name
+        check_command                   check_http_curl!http://10.128.0.3/path!--proxy http://user:name@host:8080 --user user:name --ntlm
+        use                             generic-service
+        notes                           some useful notes >>>not sure this is right
+}
