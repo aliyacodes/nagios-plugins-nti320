@@ -124,14 +124,17 @@ fi
 echo -e "\n"
 
 if [ $add_status == "0" ] && [ $remove_status == "0" ];  then
-        echo "OVERALL STATUS: OK";
+        echo "OVERALL STATUS: OK"
+        exit 0;
 
   elif  [ $add_status == "2" ] || [ $remove_status == "2" ]; then
                 echo "OVERALL STATUS: CRITICAL "
                 echo "$add_status"
-                echo "$remove_status";
+                echo "$remove_status"
+                exit 2;
 else
         echo "OVERALL STATUS: UNKNOWN " 
         echo "$add_status"
         echo "$remove_status"
+        exit 3;
 fi
