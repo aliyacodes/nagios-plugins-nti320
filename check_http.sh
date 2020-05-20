@@ -1,6 +1,5 @@
 
 #!/bin/bash
-#Verificar um HTTPS
 # on Nagios server 10.128.0.3
 # https://raw.githubusercontent.com/Eli-Brown/NTI-320-Atom-Smasher/master/nrpe-http-eli/check_http
 # https://github.com/Eli-Brown/NTI-320-Atom-Smasher/blob/master/nrpe-http-eli/check_http
@@ -22,33 +21,6 @@ define service {
 
 URL=$ARG1
 KEY=$ARG2
-CRIT=$3
-http_proxy=""
 
+curl -I -s -L <http://10.128.0.3> | grep "HTTP/1.1"
 
-
-TC=`echo ${URL} | awk -F. '{print $1}' |awk -F/ '{print $NF}'`
-TMP="/tmp/check_http_sh_${TC}.tmp"
-
-CMD_TIME="curl -k --location --no-buffer --silent --output ${TMP} -w %{time_connect}:%{time_starttransfer}:%{time_total} '${URL}'"
-TIME=`eval $CMD_TIME`
-
-if [ -f $TMP ]; then
-RESULT=`grep -c $URL
-else
-echo "UNKOWN - Could not create tmp file $TMP"
-# exit 3
-fi
-
-rm -f $TMP
-
-SURL=`echo $URL | cut -d "/" -f3-4`
-
-
-
-echo "OK - $ARG1"
-exit 0
-else
-echo "HTTP STATUS & ADDRESS - $ARG1"
-exit 2
-fi
