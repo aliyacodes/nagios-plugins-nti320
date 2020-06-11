@@ -13,9 +13,10 @@ curl -s -o http_HTTP_Status_Response.txt -w "%{http_code}" http://35.224.66.98/n
 http_HTTP-Status-Response=$(curl -s -o http_HTTP_Status_Response.txt -w "%{http_code}" http://35.224.66.98/nagios/
 if [  $ http_HTTP_Status_Response != "200" ]; then
 	echo "No HTTP Service error"
-    # handle error
-else
+	if [  $ http_HTTP_Status_Response != "100" ]; then
+		echo "HTTP Service error"
+   	
     echo "Server returned:"
     cat HTTP-Status-Response.txt    
-    echo $ARG1
+    echo "HTTP Service error"
 fi
