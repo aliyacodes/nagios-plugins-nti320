@@ -12,7 +12,7 @@ curl -s -o http_HTTP_Status_Response.txt -w "%{http_code}" http://35.224.66.98/n
 http_code "0" ="inactive"
 http_code "200" ="No HTTP Service error"
 http_code "100" ="HTTP Service error"
-http_HTTP-Status-Response=$(curl -s -o http_HTTP_Status_Response.txt -w) "%{http_code}" http://127.0.0.1/nagios/
+http_HTTP-Status-Response = $(curl -s -o http_HTTP_Status_Response.txt -w) "%{http_code}" http://127.0.0.1/nagios/
 if [  $ http_HTTP_Status_Response != "200" ]; then
 	echo "No HTTP Service error"
 		exit 200;
