@@ -10,13 +10,20 @@ curl -v http://35.224.66.98/nagios
 
 curl -s -o http_HTTP_Status_Response.txt -w "%{http_code}" http://35.224.66.98/nagios
 
+"0"="inactive"
+200="No HTTP Service erro"
+100="HTTP Service error"
+
 http_HTTP-Status-Response=$(curl -s -o http_HTTP_Status_Response.txt -w "%{http_code}" http://35.224.66.98/nagios/
 if [  $ http_HTTP_Status_Response != "200" ]; then
 	echo "No HTTP Service error"
-	if [  $ http_HTTP_Status_Response != "100" ]; then
-		echo "HTTP Service error"
+	
+if [  $ http_HTTP_Status_Response != "100" ]; then
+	echo "HTTP Service error"
+	
+if [  $ http_HTTP_Status_Response != "0" ]; then
+	echo "**Inactive HTTP Service**"
    	
     echo "Server returned:"
     cat HTTP-Status-Response.txt    
-    echo "HTTP Service error"
-fi
+    echo  "%{http_code}"
